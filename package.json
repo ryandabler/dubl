@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ryandabler/facsimile/issues"
   },
-  "homepage": "https://github.com/ryandabler/facsimile#readme"
+  "homepage": "https://github.com/ryandabler/facsimile#readme",
+  "dependencies": {
+    "tupos": "^1.1.0"
+  }
 }
