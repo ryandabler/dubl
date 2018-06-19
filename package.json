@@ -18,5 +18,15 @@
   "homepage": "https://github.com/ryandabler/facsimile#readme",
   "dependencies": {
     "tupos": "^1.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.4.3",
+    "babel-register": "^6.26.0",
+    "coveralls": "^3.0.1",
+    "cross-env": "^5.2.0",
+    "nyc": "^12.0.2"
   }
 }
