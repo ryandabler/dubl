@@ -97,3 +97,5 @@ const duplicate = {
     [types.WASM]: identity,
     [types.ASYNCFUNC]: duplicateFunction
 }
+
+module.exports = duplicate;
