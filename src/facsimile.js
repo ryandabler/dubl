@@ -8,8 +8,20 @@ const { types, typeOf } = require("tupos");
 ////////////////////
 // Main
 ////////////////////
+/**
+ * Returns the same item passed as its parameter.
+ * 
+ * @param {*} item 
+ * @returns {*}
+ */
 const identity = item => item
 
+/**
+ * Returns a new copy of a function.
+ * 
+ * @param {function} func
+ * @returns {function}
+ */
 const duplicateFunction = func => Function("return " + func)()
 
 const duplicateError = err => {
