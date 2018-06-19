@@ -98,4 +98,4 @@ const duplicate = {
     [types.ASYNCFUNC]: duplicateFunction
 }
 
-module.exports = duplicate;
+module.exports = { duplicate };
