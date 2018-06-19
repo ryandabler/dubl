@@ -1,5 +1,11 @@
+////////////////////
+// Initialize
+////////////////////
 const { types, typeOf } = require("tupos");
 
+////////////////////
+// Main
+////////////////////
 const identity = item => item
 
 const duplicateFunction = func => Function("return " + func)()
