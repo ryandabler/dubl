@@ -24,16 +24,43 @@ const identity = item => item
  */
 const duplicateFunction = func => Function("return " + func)()
 
+/**
+ * Returns a new copy of an error.
+ * 
+ * @param {Object} err
+ * @returns {Object}
+ */
 const duplicateError = err => {
     const newErr = new Error(err.message);
     newErr.name = err.name;
     return newErr;
 }
 
+/**
+ * Returns a copy of a regular expression.
+ * 
+ * @param {Object} regex 
+ * @returns {Object}
+ */
 const duplicateRegExp = regex => new RegExp(regex.source, regex.flags)
 
+/**
+ * Returns a copy of a date.
+ * 
+ * @param {Object} dt 
+ * @returns {Object}
+ */
 const duplicateDate = dt => new Date(dt)
 
+/**
+ * Returns a copy of an object.
+ * 
+ * Recursively traverses all the keys in an object, making a copy of each
+ * value based on its type.
+ * 
+ * @param {Object} obj 
+ * @returns {Object}
+ */
 const duplicateObject = obj => {
     const retObj = {};
 
@@ -44,6 +71,15 @@ const duplicateObject = obj => {
     return retObj;
 }
 
+/**
+ * Returns a copy of an array.
+ * 
+ * Traverses the whole array and deep copies each property (both indexed and
+ * non-indexed) based on its type.
+ * 
+ * @param {Array} arr 
+ * @returns {Array}
+ */
 const duplicateArray = arr => {
     const retArr = [];
     for (const key in arr) {
@@ -53,12 +89,49 @@ const duplicateArray = arr => {
     return retArr;
 }
 
+/**
+ * Returns a copy of a (Weak)Map.
+ * 
+ * This is a higher order function that takes a (Weak)Map construcutor and
+ * returns a function which will actually make the copy.
+ * 
+ * @param {Object} constructor 
+ * @returns {function}
+ */
 const duplicateMapType = constructor => map => new constructor(map)
 
+/**
+ * Returns a copy of a (Weak)Set.
+ * 
+ * This is a higher order function that takes a (Weak)Set construcutor and
+ * returns a function which will actually make the copy.
+ * 
+ * @param {Object} constructor 
+ * @returns {function}
+ */
 const duplicateSetType = constructor => set => new constructor(set)
 
+/**
+ * Returns a copy of a promise.
+ * 
+ * Because of how promises are constructed, this function will return
+ * a different object that resolves at the same time as the original promise.
+ * It does not re-initiate the original promise's logic.
+ * 
+ * @param {Object} promise 
+ * @returns {Object}
+ */
 const duplicatePromise = promise => promise.then()
 
+/**
+ * Returns a copy of a typed array.
+ * 
+ * This is a higher order function that takes a typed array construcutor and
+ * returns a function which will actually make the copy.
+ * 
+ * @param {Object} constructor 
+ * @returns {function}
+ */
 const duplicateTypedArray = constructor => typedArr => {
     const newTypedArr = new constructor(typedArr.length);
 
@@ -70,8 +143,20 @@ const duplicateTypedArray = constructor => typedArr => {
     return newTypedArr;
 }
 
+/**
+ * Returns a copy of an array buffer.
+ * 
+ * @param {Object} arrBuff 
+ * @returns {Object}
+ */
 const duplicateArrayBuffer = arrBuff => new ArrayBuffer(arrBuff.length)
 
+/**
+ * Returns a copy of a data view.
+ * 
+ * @param {Object} dv 
+ * @returns {Object}
+ */
 const duplicateDataView = dv =>
     new DataView(dv.buffer, dv.byteOffset, dv.byteLength)
 
