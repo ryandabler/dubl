@@ -160,6 +160,8 @@ const duplicateArrayBuffer = arrBuff => new ArrayBuffer(arrBuff.length)
 const duplicateDataView = dv =>
     new DataView(dv.buffer, dv.byteOffset, dv.byteLength)
 
+const duplicate = elem => _duplicate[typeOf(elem)](elem)
+
 const _duplicate = {
     [types.STRING]: identity,
     [types.NUMBER]: identity,
