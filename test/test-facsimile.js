@@ -3,6 +3,19 @@
 ////////////////////////////
 const chai  = require("chai");
 const {
+    identity,
+    duplicateFunction,
+    duplicateError,
+    duplicateRegExp,
+    duplicateDate,
+    duplicateObject,
+    duplicateArray,
+    duplicateMapType,
+    duplicateSetType,
+    duplicatePromise,
+    duplicateTypedArray,
+    duplicateArrayBuffer,
+    duplicateDataView,
     duplicate
 } = require("../src/facsimile");
 
