@@ -197,4 +197,19 @@ const duplicate = {
     [types.ASYNCFUNC]: duplicateFunction
 }
 
-module.exports = { duplicate };
+module.exports = {
+    identity,
+    duplicateFunction,
+    duplicateError,
+    duplicateRegExp,
+    duplicateDate,
+    duplicateObject,
+    duplicateArray,
+    duplicateMapType,
+    duplicateSetType,
+    duplicatePromise,
+    duplicateTypedArray,
+    duplicateArrayBuffer,
+    duplicateDataView,
+    duplicate
+};
