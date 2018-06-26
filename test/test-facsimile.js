@@ -2,6 +2,7 @@
 // Initialize
 ////////////////////////////
 const chai  = require("chai");
+const { isPrimitive } = require("tupos");
 const {
     identity,
     duplicateFunction,
