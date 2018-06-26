@@ -42,5 +42,38 @@ describe("facsimile.js", function() {
             });
         });
     });
+
+    describe("duplicateFunction()", function() {
+        it("Should return a new function", function() {
+            const compound = param => { return param.toString(); };
+            compound.prop1 = "property";
+            compound.prop2 = [ 1, 2, [ 3, 4 ] ];
+
+            const inputs = [
+                () => 2,
+                function (a, b) { return a + b },
+                compound
+            ];
+            const results = inputs.map(duplicateFunction);
+            
+            results.forEach((result, idx) => {
+                const input = inputs[idx];
+
+                expect(result).to.not.equal(input);
+                expect(result.toString()).to.equal(input.toString());
+                
+                for (const key in input) {
+                    expect(key in result).to.be.true;
+
+                    if (isPrimitive(input[key])) {
+                        expect(input[key]).to.equal(result[key]);
+                    } else {
+                        expect(input[key]).to.not.equal(result[key]);
+                        expect(input[key]).to.deep.equal(result[key]);
+                    }
+                }
+            });
+        });
+    });
 });
 
