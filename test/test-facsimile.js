@@ -24,15 +24,17 @@ const expect = chai.expect;
 ////////////////////////////
 // Test
 ////////////////////////////
-describe("duplicate()", function() {
-    it("Should duplicate a string", function() {
+describe("identity()", function() {
+    it("Should return original parameter", function() {
         const inputs = [
             "abc",
-            new String("def"),
-            String("ghi")
+            1,
+            true,
+            [ 1, 2, 3 ],
+            { a: [1, 2], b: 3, c: "string" }
         ];
-        const results = inputs.map(duplicate);
-        
+        const results = inputs.map(identity);
+
         results.forEach((result, idx) => {
             expect(result).to.equal(inputs[idx]);
         });
