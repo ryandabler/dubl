@@ -22,7 +22,15 @@ const identity = item => item
  * @param {function} func
  * @returns {function}
  */
-const duplicateFunction = func => Function("return " + func)()
+const duplicateFunction = func => {
+    const _func = Function("return " + func)();
+
+    for (const key in func) {
+        _func[key] = duplicate[typeOf(func[key])](func[key]);
+    }
+
+    return _func;
+}
 
 /**
  * Returns a new copy of an error.
