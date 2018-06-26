@@ -65,7 +65,7 @@ const duplicateObject = obj => {
     const retObj = {};
 
     for (const key in obj) {
-        retObj[key] = _duplicate[typeOf(obj[key])](obj[key]);
+        retObj[key] = duplicate[typeOf(obj[key])](obj[key]);
     }
 
     return retObj;
@@ -83,7 +83,7 @@ const duplicateObject = obj => {
 const duplicateArray = arr => {
     const retArr = [];
     for (const key in arr) {
-        retArr[key] = _duplicate[typeOf(arr[key])](arr[key]);
+        retArr[key] = duplicate[typeOf(arr[key])](arr[key]);
     }
 
     return retArr;
@@ -137,7 +137,7 @@ const duplicateTypedArray = constructor => typedArr => {
 
     for (const key in typedArr) {
         newTypedArr[key] =
-            _duplicate[typeOf(typedArr[key])](typedArr[key]);
+            duplicate[typeOf(typedArr[key])](typedArr[key]);
     }
 
     return newTypedArr;
@@ -160,9 +160,7 @@ const duplicateArrayBuffer = arrBuff => new ArrayBuffer(arrBuff.length)
 const duplicateDataView = dv =>
     new DataView(dv.buffer, dv.byteOffset, dv.byteLength)
 
-const duplicate = elem => _duplicate[typeOf(elem)](elem)
-
-const _duplicate = {
+const duplicate = {
     [types.STRING]: identity,
     [types.NUMBER]: identity,
     [types.BOOLEAN]: identity,
