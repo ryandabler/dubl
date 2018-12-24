@@ -54,6 +54,11 @@ describe("facsimile.js", function() {
                 function (a, b) { return a + b },
                 compound
             ];
+            const params = [
+                [ undefined ],
+                [ 1, 2 ],
+                [ {a: 1} ]
+            ];
             const results = inputs.map(duplicateFunction);
             
             results.forEach((result, idx) => {
@@ -61,7 +66,8 @@ describe("facsimile.js", function() {
 
                 expect(result).to.not.equal(input);
                 expect(result.toString()).to.equal(input.toString());
-                
+                expect(result(...params[idx])).to.equal(input(...params[idx]));
+
                 for (const key in input) {
                     expect(key in result).to.be.true;
 
