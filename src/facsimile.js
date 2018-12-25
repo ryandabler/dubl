@@ -98,26 +98,26 @@ const duplicateArray = arr => {
 }
 
 /**
- * Returns a copy of a (Weak)Map.
+ * Returns a copy of a Map.
  * 
- * This is a higher order function that takes a (Weak)Map construcutor and
- * returns a function which will actually make the copy.
+ * Takes a given Map and uses it to generate a new copy. This function
+ * will not create a copy of a WeakMap because its keys are not enumerable.
  * 
- * @param {Object} constructor 
- * @returns {function}
+ * @param {Map} map 
+ * @returns {Map}
  */
-const duplicateMapType = constructor => map => new constructor(map)
+const duplicateMap = map => new Map(map)
 
 /**
- * Returns a copy of a (Weak)Set.
+ * Returns a copy of a Set.
  * 
- * This is a higher order function that takes a (Weak)Set construcutor and
- * returns a function which will actually make the copy.
+ * Takes a given Set and uses it to generate a new copy. This function
+ * will not create a copy of a Weakset because its contents are not enumerable.
  * 
- * @param {Object} constructor 
- * @returns {function}
+ * @param {Set} set 
+ * @returns {Set}
  */
-const duplicateSetType = constructor => set => new constructor(set)
+const duplicateSet = set => new Set(set)
 
 /**
  * Returns a copy of a promise.
@@ -181,10 +181,10 @@ const duplicate = {
     [types.DATE]: duplicateDate,
     [types.OBJECT]: duplicateObject,
     [types.ARRAY]: duplicateArray,
-    [types.MAP]: duplicateMapType(Map),
-    [types.WEAKMAP]: duplicateMapType(WeakMap),
-    [types.SET]: duplicateSetType(Set),
-    [types.WEAKSET]: duplicateSetType(WeakSet),
+    [types.MAP]: duplicateMap,
+    [types.WEAKMAP]: identity,
+    [types.SET]: duplicateSet,
+    [types.WEAKSET]: identity,
     [types.MATH]: identity,
     [types.PROMISE]: duplicatePromise,
     [types.INT8ARRAY]: duplicateTypedArray(Int8Array),
@@ -213,8 +213,8 @@ module.exports = {
     duplicateDate,
     duplicateObject,
     duplicateArray,
-    duplicateMapType,
-    duplicateSetType,
+    duplicateMap,
+    duplicateSet,
     duplicatePromise,
     duplicateTypedArray,
     duplicateArrayBuffer,
