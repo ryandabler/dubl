@@ -1,5 +1,5 @@
 {
-  "name": "facsimile",
+  "name": "dubl",
   "version": "1.0.0",
   "description": "A utility to deep copy any JavaScript object",
   "main": "lib/index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ryandabler/facsimile.git"
+    "url": "git+https://github.com/ryandabler/dubl.git"
   },
   "author": "Ryan Dabler <r.p.dabler@gmail.com> (https://ryandabler.github.io)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ryandabler/facsimile/issues"
+    "url": "https://github.com/ryandabler/dubl/issues"
   },
-  "homepage": "https://github.com/ryandabler/facsimile#readme",
+  "homepage": "https://github.com/ryandabler/dubl#readme",
   "dependencies": {
     "tupos": "^1.2.1"
   },
