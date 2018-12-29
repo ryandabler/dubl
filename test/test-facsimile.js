@@ -16,7 +16,7 @@ const {
     duplicateTypedArray,
     duplicateArrayBuffer,
     duplicateDataView
-} = require("../src/facsimile");
+} = require("../src/dubl");
 
 const expect = chai.expect;
 const isTraversable = isOneOf(types.ARRAY, types.OBJECT);

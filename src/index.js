@@ -4,7 +4,7 @@
 // Initialize
 ////////////////////
 const { typeOf } = require("tupos");
-const { duplicate } = require("./facsimile");
+const { duplicate } = require("./dubl");
 
 ////////////////////
 // Main
