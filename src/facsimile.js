@@ -124,16 +124,7 @@ const duplicatePromise = promise => promise.then()
  * @param {Object} constructor 
  * @returns {function}
  */
-const duplicateTypedArray = constructor => typedArr => {
-    const newTypedArr = new constructor(typedArr.length);
-
-    for (const key in typedArr) {
-        newTypedArr[key] =
-            duplicate[typeOf(typedArr[key])](typedArr[key]);
-    }
-
-    return newTypedArr;
-}
+const duplicateTypedArray = constructor => typedArr => new constructor(typedArr);
 
 /**
  * Returns a copy of an array buffer.
