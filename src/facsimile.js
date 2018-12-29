@@ -61,40 +61,24 @@ const duplicateRegExp = regex => new RegExp(regex.source, regex.flags)
 const duplicateDate = dt => new Date(dt)
 
 /**
- * Returns a copy of an object.
+ * Returns a function which will make a copy of an object with enumerable
+ * keys.
  * 
- * Recursively traverses all the keys in an object, making a copy of each
- * value based on its type.
+ * Takes a constructor for such an object and returns a function which
+ * recursively traverses all the keys in that object, making a copy of
+ * each value based on its type.
  * 
  * @param {Object} obj 
  * @returns {Object}
  */
-const duplicateObject = obj => {
-    const retObj = {};
+const duplicateTraversableObject = constructor => obj => {
+    const retObj = new constructor();
 
     for (const key in obj) {
         retObj[key] = duplicate[typeOf(obj[key])](obj[key]);
     }
 
     return retObj;
-}
-
-/**
- * Returns a copy of an array.
- * 
- * Traverses the whole array and deep copies each property (both indexed and
- * non-indexed) based on its type.
- * 
- * @param {Array} arr 
- * @returns {Array}
- */
-const duplicateArray = arr => {
-    const retArr = [];
-    for (const key in arr) {
-        retArr[key] = duplicate[typeOf(arr[key])](arr[key]);
-    }
-
-    return retArr;
 }
 
 /**
@@ -179,8 +163,8 @@ const duplicate = {
     [types.ERROR]: duplicateError,
     [types.REGEXP]: duplicateRegExp,
     [types.DATE]: duplicateDate,
-    [types.OBJECT]: duplicateObject,
-    [types.ARRAY]: duplicateArray,
+    [types.OBJECT]: duplicateTraversableObject(Object),
+    [types.ARRAY]: duplicateTraversableObject(Array),
     [types.MAP]: duplicateMap,
     [types.WEAKMAP]: identity,
     [types.SET]: duplicateSet,
@@ -211,8 +195,7 @@ module.exports = {
     duplicateError,
     duplicateRegExp,
     duplicateDate,
-    duplicateObject,
-    duplicateArray,
+    duplicateTraversableObject,
     duplicateMap,
     duplicateSet,
     duplicatePromise,
