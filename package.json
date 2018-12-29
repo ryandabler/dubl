@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/ryandabler/facsimile#readme",
   "dependencies": {
-    "tupos": "^1.1.0"
+    "tupos": "^1.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
