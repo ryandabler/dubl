@@ -15,7 +15,7 @@ const {
     duplicatePromise,
     duplicateTypedArray,
     duplicateArrayBuffer,
-    duplicateDataView,
+    duplicateDataView
 } = require("../src/facsimile");
 
 const expect = chai.expect;
