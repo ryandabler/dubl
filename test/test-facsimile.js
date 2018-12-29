@@ -2,7 +2,7 @@
 // Initialize
 ////////////////////////////
 const chai  = require("chai");
-const { isPrimitive } = require("tupos");
+const { isPrimitive, types, typeOf, areSameType, isOneOf } = require("tupos");
 const {
     identity,
     duplicateFunction,
@@ -19,6 +19,32 @@ const {
 } = require("../src/facsimile");
 
 const expect = chai.expect;
+const isTraversable = isOneOf(types.ARRAY, types.OBJECT);
+
+const checkObjects = (obj1, obj2) => {
+    const obj1Entries = Object.entries(obj1);
+    const obj2Keys = Object.keys(obj2);
+
+    obj1Entries.forEach(([ key, value ]) => {
+        expect(key in obj2).to.be.true;
+        const obj2Value = obj2[key];
+        if (isPrimitive(value)) {
+            if (typeOf(value) === types.SYMBOL) {
+                expect(typeOf(obj2Value)).to.equal(types.SYMBOL);
+            } else {
+                expect(value).to.equal(obj2Value);
+            }
+        } else if (isTraversable(value)) {
+            checkObjects(value, obj2Value);
+        } else {
+            expect(typeOf(value)).to.equal(typeOf(obj2Value));
+        }
+    });
+
+    obj2Keys.forEach(key => {
+        expect(key in obj1).to.be.true;
+    });
+};
 
 ////////////////////////////
 // Test
