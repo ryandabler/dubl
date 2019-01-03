@@ -357,7 +357,6 @@ describe("facsimile.js", function() {
         });
     });
 
-    // describe("duplicateObject()", function() {
     describe('duplicateTraversableObject()', function() {
         const duplicateObject = duplicateTraversableObject(Object);
         const duplicateArray = duplicateTraversableObject(Array);
