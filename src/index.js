@@ -9,6 +9,6 @@ const { duplicate } = require("./dubl");
 ////////////////////
 // Main
 ////////////////////
-const copy = param => duplicate[typeOf(param)](param)
+const copy = (param, shouldDup = () => true) => duplicate[typeOf(param)](param, shouldDup)
 
 module.exports = { copy };

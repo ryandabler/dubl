@@ -71,11 +71,13 @@ const duplicateDate = dt => new Date(dt)
  * @param {Object} obj 
  * @returns {Object}
  */
-const duplicateTraversableObject = constructor => obj => {
+const duplicateTraversableObject = constructor => (obj, shouldDup = () => true) => {
     const retObj = new constructor();
 
     for (const key in obj) {
-        retObj[key] = duplicate[typeOf(obj[key])](obj[key]);
+        retObj[key] = shouldDup(obj[key])
+            ? duplicate[typeOf(obj[key])](obj[key])
+            : obj[key];
     }
 
     return retObj;

@@ -46,6 +46,35 @@ const checkObjects = (obj1, obj2) => {
     });
 };
 
+const checkObjectsRestrictions = (obj1, obj2, shouldDup) => {
+    const obj1Entries = Object.entries(obj1);
+    const obj2Keys = Object.keys(obj2);
+
+    obj1Entries.forEach(([ key, value ]) => {
+        expect(key in obj2).to.be.true;
+        const obj2Value = obj2[key];
+        if (shouldDup(value) && isPrimitive(value)) {
+            if (typeOf(value) === types.SYMBOL) {
+                expect(typeOf(obj2Value)).to.equal(types.SYMBOL);
+            } else {
+                expect(value).to.equal(obj2Value);
+            }
+        } else if (shouldDup(value) && isTraversable(value)) {
+            expect(value).to.not.equal(obj2Value);
+            checkObjectsRestrictions(value, obj2Value, shouldDup);
+        } else if (shouldDup(value)) {
+            expect(value).to.not.equal(obj2Value);
+            expect(typeOf(value)).to.equal(typeOf(obj2Value));
+        } else {
+            expect(value).to.equal(obj2Value);
+        }
+    });
+
+    obj2Keys.forEach(key => {
+        expect(key in obj1).to.be.true;
+    });
+}
+
 ////////////////////////////
 // Test
 ////////////////////////////
@@ -360,6 +389,7 @@ describe("facsimile.js", function() {
     describe('duplicateTraversableObject()', function() {
         const duplicateObject = duplicateTraversableObject(Object);
         const duplicateArray = duplicateTraversableObject(Array);
+        const shouldDup = isOneOf(types.ARRAY, types.OBJECT);
 
         it('Should duplicate a flat object', function() {
             const input = {
@@ -434,6 +464,32 @@ describe("facsimile.js", function() {
             const result = duplicateArray(input);
             expect(result).to.not.equal(input);
             checkObjects(result, input);
+        });
+
+        it('Should only duplicate allowed types', function() {
+            const input = {
+                a: {
+                    b: 1,
+                    c: {
+                        d: () => {},
+                        e: [ 1, 2, 'b' ]
+                    }
+                },
+                f: [ 4, true, { g: 'b', h: new Error('ddd') } ],
+                i: new Date('2016-15-14'),
+                j: {
+                    k: {
+                        l: {
+                            m: {
+                                n: /def/
+                            }
+                        }
+                    }
+                }
+            };
+            const result = duplicateArray(input, shouldDup);
+            expect(result).to.not.equal(input);
+            checkObjects(result, input, shouldDup);
         });
     });
 });
