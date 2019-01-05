@@ -146,6 +146,19 @@ const duplicateArrayBuffer = arrBuff => new ArrayBuffer(arrBuff.length)
 const duplicateDataView = dv =>
     new DataView(dv.buffer, dv.byteOffset, dv.byteLength)
 
+/**
+ * Returns a copy of an object able to be built by a serializable string.
+ * 
+ * This is a higher order function that takes a construcutor and
+ * returns a function which will actually make the copy of an object.
+ * The one distinction is that the `param` must be serializable to a
+ * string and the constructor be able to create a copy from that string.
+ * 
+ * @param {Object} constructor 
+ * @returns {function}
+ */
+const duplicateSerializable = constructor => param => new constructor(param.toString())
+
 const duplicate = {
     [types.STRING]: identity,
     [types.NUMBER]: identity,
@@ -180,7 +193,9 @@ const duplicate = {
     [types.GENERATOR]: identity,
     [types.GENERATORFUNC]: duplicateFunction,
     [types.WASM]: identity,
-    [types.ASYNCFUNC]: duplicateFunction
+    [types.ASYNCFUNC]: duplicateFunction,
+    [types.URL]: duplicateSerializable(URL),
+    [types.URLPARAMS]: duplicateSerializable(URLSearchParams)
 }
 
 module.exports = {
@@ -196,5 +211,6 @@ module.exports = {
     duplicateTypedArray,
     duplicateArrayBuffer,
     duplicateDataView,
+    duplicateSerializable,
     duplicate
 };

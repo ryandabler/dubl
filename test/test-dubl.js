@@ -15,7 +15,8 @@ const {
     duplicatePromise,
     duplicateTypedArray,
     duplicateArrayBuffer,
-    duplicateDataView
+    duplicateDataView,
+    duplicateSerializable
 } = require("../src/dubl");
 
 const expect = chai.expect;
@@ -490,6 +491,27 @@ describe("facsimile.js", function() {
             const result = duplicateArray(input, shouldDup);
             expect(result).to.not.equal(input);
             checkObjects(result, input, shouldDup);
+        });
+    });
+    
+    describe("duplicateSerializable()", function() {
+        const duplicateURL = duplicateSerializable(URL);
+        const duplicateURLParams = duplicateSerializable(URLSearchParams);
+
+        it('Should duplicate a URL', function() {
+            const input = new URL('https://ryan:dabler@en.myurl.com:2200/dabler?test=a&b=type#hash')
+            const result = duplicateURL(input);
+
+            expect(result).to.not.equal(input);
+            expect(result.toString()).to.equal(input.toString());
+        });
+
+        it('Should duplicate URLSearchParams', function() {
+            const input = new URLSearchParams('test=a&b=type')
+            const result = duplicateURLParams(input);
+
+            expect(result).to.not.equal(input);
+            expect(result.toString()).to.equal(input.toString());
         });
     });
 });
