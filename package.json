@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/ryandabler/dubl#readme",
   "dependencies": {
-    "tupos": "^1.2.1"
+    "tupos": "^1.2.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
